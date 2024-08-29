@@ -68,37 +68,22 @@ def main():
     Obtain a database connection using get_db, retrieves all rows
     in the users table, and logs each row with a formatted message.
     """
-    # الحصول على مسجل الأحداث
     logger = get_logger()
-    
-    # الحصول على اتصال بقاعدة البيانات
+
     db = get_db()
     cursor = db.cursor()
-    
     try:
-        # تنفيذ استعلام لاسترجاع جميع الصفوف من جدول المستخدمين
         cursor.execute("SELECT * FROM users;")
-        
-        # الحصول على أسماء الأعمدة من نتيجة الاستعلام
         field_names = [i[0] for i in cursor.description]
-        
-        # قراءة كل صف من النتيجة
         for row in cursor:
-            # إنشاء سلسلة نصية تمثل كل صف مع تنسيق الأعمدة
-            message = ''.join(f'{field}={str(value)}; ' for field, value in zip(field_names, row))
-            
-            # تسجيل السلسلة النصية في سجل الأحداث
+            message = ''.join(f'{field}={str(value)}; ' for field,
+                              value in zip(field_names, row))
             logger.info(message.strip())
-    
     except Exception as e:
-        # في حالة حدوث خطأ، طباعة رسالة الخطأ
         print(f"An error occurred: {e}")
-    
     finally:
-        # إغلاق المؤشر والاتصال بقاعدة البيانات
         cursor.close()
         db.close()
-
 
 
 if __name__ == "__main__":
