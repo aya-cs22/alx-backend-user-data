@@ -1,12 +1,29 @@
 #!/usr/bin/env python3
-"""modul"""
+"""This module provides a logger with redaction for sensitive data.
+The module defines a RedactingFormatter class.
+This formatter is used to redact sensitive data.
+Example usage:
+    logger = get_logger()
+    logger.info("User logged in: name=john, email=john@example.com")
+"""
+
+from ast import List
+from dataclasses import field
 import re
-from typing import List
-import logging
 import os
 import mysql.connector
+import logging
+from typing import List
 
-PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
+# """modul"""
+# import re
+# from typing import List
+# import logging
+# import os
+# import mysql.connector
+
+# PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 def filter_datum(fields: List[str],
@@ -19,33 +36,15 @@ def filter_datum(fields: List[str],
 
 
 def get_logger() -> logging.Logger:
-    """
-    Return a logging.Logger object configured with the RedactingFormatter.
-
-    Returns:
-        logging.Logger: The configured logger object.
-    """
-    logger = logging.getLogger("user_data")
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
-
-    handler = logging.StreamHandler()
-
-    formatter = RedactingFormatter(PII_FIELDS)
-
-    handler.setFormatter(formatter)
-    logger.addHandler(handler)
-    return logger
-# def get_logger() -> logging.Logger:
-#     """Create logger"""
-#     loger = logging.getLogger("user_data")
-#     loger.setLevel(logging.INFO)
-#     loger.propagate = False
-#     smart_handler = logging.StreamHandler()
-#     formater = RedactingFormatter(fields=PII_FIELDS)
-#     smart_handler.setFormatter(formater)
-#     loger.addHandler(smart_handler)
-#     return loger
+    """Create logger"""
+    loger = logging.getLogger("user_data")
+    loger.setLevel(logging.INFO)
+    loger.propagate = False
+    smart_handler = logging.StreamHandler()
+    formater = RedactingFormatter(fields=PII_FIELDS)
+    smart_handler.setFormatter(formater)
+    loger.addHandler(smart_handler)
+    return loger
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
