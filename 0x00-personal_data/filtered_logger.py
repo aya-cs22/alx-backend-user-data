@@ -18,35 +18,6 @@ from typing import List
 PII_FIELDS = ('name', 'email', 'phone', 'ssn', 'password')
 
 
-class RedactingFormatter(logging.Formatter):
-    """Redacting Formatter class that
-    redacts sensitive data in log messages."""
-
-    REDACTION = "***"
-    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
-    SEPARATOR = ";"
-
-    def __init__(self, fields: List[str]):
-        super(RedactingFormatter, self).__init__(self.FORMAT)
-        self.fields = fields
-
-    def format(self, record: logging.LogRecord) -> str:
-        """
-        Format the log record and redact sensitive data.
-
-        Args:
-            record (logging.LogRecord): LogRecord
-            instance containing the log message.
-
-        Returns:
-            str: The formatted log message with sensitive data redacted.
-        """
-        message = super(RedactingFormatter, self).format(record)
-        redacted = filter_datum(self.fields, self.REDACTION,
-                                message, self.SEPARATOR)
-        return redacted
-
-
 def get_logger() -> logging.Logger:
     """
     Return a logging.Logger object configured with the RedactingFormatter.
@@ -100,6 +71,35 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
                                    host=host,
                                    database=db_name)
     return conn
+
+
+class RedactingFormatter(logging.Formatter):
+    """Redacting Formatter class that
+    redacts sensitive data in log messages."""
+
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: List[str]):
+        super(RedactingFormatter, self).__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """
+        Format the log record and redact sensitive data.
+
+        Args:
+            record (logging.LogRecord): LogRecord
+            instance containing the log message.
+
+        Returns:
+            str: The formatted log message with sensitive data redacted.
+        """
+        message = super(RedactingFormatter, self).format(record)
+        redacted = filter_datum(self.fields, self.REDACTION,
+                                message, self.SEPARATOR)
+        return redacted
 
 
 def main():
