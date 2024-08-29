@@ -11,15 +11,10 @@ def hash_password(password: str) -> bytes:
 
 
 def is_valid(hashed_password: bytes, password: str) -> bool:
-    """
-    Check whether a password is valid
-    Args:
-        hashed_password (bytes): hashed password
-        password (str): password in string
-    Return:
-        bool
-    """
-    return bcrypt.checkpw(password.encode(), hashed_password)
+    """Check valid password"""
+    password_byte = password.encode()
+    return bcrypt.checkpw(password_byte, hashed_password)
+
 # #!/usr/bin/env python3
 # """Encrypting passwords"""
 # import bcrypt
