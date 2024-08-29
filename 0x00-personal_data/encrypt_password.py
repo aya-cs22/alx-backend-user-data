@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
-""" script to hash passwords
-"""
-
+"""Encrypting passwords"""
 import bcrypt
-
 
 def hash_password(password: str) -> bytes:
     """Hashes the given password using bcrypt.
