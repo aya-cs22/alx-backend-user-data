@@ -8,7 +8,7 @@ This project focuses on managing personal data with a strong emphasis on securit
 
 Before diving into the implementation, make sure to read or watch the following resources to understand the key concepts:
 
-- [What Is PII, non-PII, and Personal Data?](#https://piwik.pro/blog/what-is-pii-personal-data/)
+- [What Is PII, non-PII, and Personal Data?](https://piwik.pro/blog/what-is-pii-personal-data/)
 - [Logging Documentation](https://docs.python.org/3/library/logging.html) 
 - [bcrypt Package](https://github.com/pyca/bcrypt/)
 - [Logging to Files, Setting Levels, and Formatting](https://www.youtube.com/watch?v=-ARI4Cz-awo) 
