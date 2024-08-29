@@ -64,23 +64,25 @@ class RedactingFormatter(logging.Formatter):
 
 
 def main():
-    """
-    main entry point
-    """
+    """main"""
+    loger = get_logger()
     db = get_db()
-    logger = get_logger()
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM users;")
-    fields = cursor.column_names
-    for row in cursor:
-        message = "".join("{}={}; ".format(k, v) for k, v in zip(fields, row))
-        logger.info(message.strip())
+    cursor.execute("SELECT * FROM users")
+    rows = cursor.fetchall()
+    for row in rows:
+        message = (
+            "name={}; email={}; phone={}; ssn={}; password={}; ip={}; "
+            "last_login={}; user_agent={}".format(*row)
+        )
+        loger.info(message)
     cursor.close()
     db.close()
 
 
 if __name__ == "__main__":
     main()
+
 # #!/usr/bin/env python3
 # """modul"""
 # import re
