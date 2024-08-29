@@ -17,6 +17,7 @@ def filter_datum(fields: List[str],
 
 
 def get_logger() -> logging.Logger:
+    """Create logger"""
     loger = logging.getLogger("user_data")
     loger.setLevel(logging.INFO)
     loger.propagate = False
