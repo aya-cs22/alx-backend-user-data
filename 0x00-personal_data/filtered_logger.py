@@ -19,15 +19,33 @@ def filter_datum(fields: List[str],
 
 
 def get_logger() -> logging.Logger:
-    """Create logger"""
-    loger = logging.getLogger("user_data")
-    loger.setLevel(logging.INFO)
-    loger.propagate = False
-    smart_handler = logging.StreamHandler()
-    formater = RedactingFormatter(fields=PII_FIELDS)
-    smart_handler.setFormatter(formater)
-    loger.addHandler(smart_handler)
-    return loger
+    """
+    Return a logging.Logger object configured with the RedactingFormatter.
+
+    Returns:
+        logging.Logger: The configured logger object.
+    """
+    logger = logging.getLogger("user_data")
+    logger.setLevel(logging.INFO)
+    logger.propagate = False
+
+    handler = logging.StreamHandler()
+
+    formatter = RedactingFormatter(PII_FIELDS)
+
+    handler.setFormatter(formatter)
+    logger.addHandler(handler)
+    return logger
+# def get_logger() -> logging.Logger:
+#     """Create logger"""
+#     loger = logging.getLogger("user_data")
+#     loger.setLevel(logging.INFO)
+#     loger.propagate = False
+#     smart_handler = logging.StreamHandler()
+#     formater = RedactingFormatter(fields=PII_FIELDS)
+#     smart_handler.setFormatter(formater)
+#     loger.addHandler(smart_handler)
+#     return loger
 
 
 def get_db() -> mysql.connector.connection.MySQLConnection:
