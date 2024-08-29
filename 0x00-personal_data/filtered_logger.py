@@ -29,6 +29,7 @@ def get_logger() -> logging.Logger:
     loger.addHandler(smart_handler)
     return loger
 
+
 def get_db() -> mysql.connector.connection.MySQLConnection:
     """Connect to secure database"""
     user = os.getenv('PERSONAL_DATA_DB_USERNAME', 'root')
@@ -36,10 +37,10 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
     host = os.getenv('PERSONAL_DATA_DB_HOST', 'localhost')
     database = os.getenv('PERSONAL_DATA_DB_NAME')
     db = mysql.connector.connection.MySQLConnection(
-        user = user,
-        password = password,
-        host = host,
-        database = database
+        user=user,
+        password=password,
+        host=host,
+        database=database
     )
     return db
 
