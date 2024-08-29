@@ -46,8 +46,8 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
 
 
 class RedactingFormatter(logging.Formatter):
-    """Redacting Formatter class that
-    redacts sensitive data in log messages."""
+    """ Redacting Formatter class
+        """
 
     REDACTION = "***"
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
@@ -58,20 +58,10 @@ class RedactingFormatter(logging.Formatter):
         self.fields = fields
 
     def format(self, record: logging.LogRecord) -> str:
-        """
-        Format the log record and redact sensitive data.
+        """filter"""
+        mes = super(RedactingFormatter, self).format(record)
+        return filter_datum(self.fields, self.REDACTION, mes, self.SEPARATOR)
 
-        Args:
-            record (logging.LogRecord): LogRecord
-            instance containing the log message.
-
-        Returns:
-            str: The formatted log message with sensitive data redacted.
-        """
-        message = super(RedactingFormatter, self).format(record)
-        redacted = filter_datum(self.fields, self.REDACTION,
-                                message, self.SEPARATOR)
-        return redacted
 
 
 def main():
