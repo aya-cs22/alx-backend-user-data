@@ -65,9 +65,7 @@ class RedactingFormatter(logging.Formatter):
 
 def main():
     """
-    Obtain a database connection using get_db, retrieves all rows
-    in the users table, and logs each row with a formatted message.
-    """
+    main"""
     logger = get_logger()
 
     db = get_db()
