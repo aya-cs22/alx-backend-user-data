@@ -71,10 +71,14 @@ def main():
     cursor.execute("SELECT * FROM users")
     rows = cursor.fetchall()
     for row in rows:
-        message = "name={}; email={}; phone={}; ssn={}; password={}; ip={}; last_login={}; user_agent={}".format(*row)
+        message = (
+            "name={}; email={}; phone={}; ssn={}; password={}; ip={}; "
+            "last_login={}; user_agent={}".format(*row)
+        )
         loger.info(message)
     cursor.close()
     db.close()
+
 
 if __name__ == "__main__":
     main()
