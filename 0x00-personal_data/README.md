@@ -24,7 +24,7 @@ By the end of this project, you should be able to:
    - Develop a logging filter that masks or obfuscates PII fields to prevent sensitive information from being exposed in logs.
 
 3. **Encrypt a Password and Check Input Password Validity:**
-   - Use `bcrypt` to securely hash and verify passwords, ensuring that passwords are stored and validated securely.
+   - Use bcrypt to securely hash and verify passwords, ensuring that passwords are stored and validated securely.
 
 4. **Authenticate to a Database Using Environment Variables:**
    - Configure your application to authenticate to a database using environment variables for secure credential management.
