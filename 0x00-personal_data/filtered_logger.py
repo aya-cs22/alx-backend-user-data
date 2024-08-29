@@ -63,7 +63,6 @@ class RedactingFormatter(logging.Formatter):
         return filter_datum(self.fields, self.REDACTION, mes, self.SEPARATOR)
 
 
-
 def main():
     """
     main entry point
