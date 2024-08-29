@@ -68,7 +68,7 @@ def main():
     loger = get_logger()
     db = get_db()
     cursor = db.cursor()
-    cursor.execute("SELECT * FROM users")
+    cursor.execute("SELECT * FROM users;")
     rows = cursor.fetchall()
     for row in rows:
         message = (
