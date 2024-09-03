@@ -33,6 +33,6 @@ def unauthorized() -> None:
 
 
 @app_views.route('/forbidden/', strict_slashes=False)
-def unauthorized() -> None:
+def forbidden(error) -> None:
     """An endpoint raises a 403 (forbidden) error"""
     abort(403)
