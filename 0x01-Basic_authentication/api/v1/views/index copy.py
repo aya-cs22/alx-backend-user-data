@@ -26,13 +26,13 @@ def stats() -> str:
     return jsonify(stats)
 
 
-@app_views.route('/unauthorized/', strict_slashes=False)
+@app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
 def unauthorized() -> None:
     """An endpoint raises a 401 (Unauthorized) error"""
     abort(401)
 
 
-@app_views.route('/forbidden/', strict_slashes=False)
+@app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
 def forbidden(error) -> str:
     """An endpoint raises a 403 (forbidden) error"""
     abort(403)
