@@ -51,3 +51,20 @@ class BasicAuth(Auth):
             return email, password
         except ValueError:
             return None, None
+
+    def user_object_from_credentials(self, user_email: str,
+                                     user_pwd: str) -> TypeVar('User'):
+        """Return the User instance based on email and password"""
+        if not isinstance(user_email, str) or user_email is None:
+            return None
+        if not isinstance(user_pwd, str) or user_pwd is None:
+            return None
+        user = User.search(user_email)
+        if not user:
+            return None
+        if not user:
+            return None
+        for u in user:
+            if u.is_valid_password(user_pwd):
+                return u
+            return None
