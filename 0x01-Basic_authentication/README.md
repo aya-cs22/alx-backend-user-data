@@ -37,6 +37,3 @@ By the end of this project, you should be able to:
     ```bash
     cd 0x01-basic-authentication
     ```
-3. **Follow the instructions in the project files** to implement Basic Authentication.
-
-4. **Run the tests** to ensure everything is working as expected.
