@@ -5,6 +5,7 @@ from base64 import b64decode
 from models.user import User
 from typing import TypeVar
 
+
 class BasicAuth(Auth):
     """The BasicAuth class inherits from Auth"""
     def extract_base64_authorization_header(self,
@@ -17,7 +18,6 @@ class BasicAuth(Auth):
         if not authorization_header.startswith("Basic "):
             return None
         return authorization_header[len("Basic "):]
-
 
     def decode_base64_authorization_header(self,
                                            base64_authorization_header:
