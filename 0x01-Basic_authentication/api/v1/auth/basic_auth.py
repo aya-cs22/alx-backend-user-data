@@ -86,3 +86,4 @@ class BasicAuth(Auth):
         email, password = self.extract_user_credentials(decoded_auth_header)
         if email is None or password is None:
             return None
+        return self.user_object_from_credentials(email, password)
