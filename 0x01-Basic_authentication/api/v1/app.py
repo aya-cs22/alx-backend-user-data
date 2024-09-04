@@ -17,19 +17,34 @@ app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
 
+# @app.before_request
+# def before_request_func():
+#     """Filter orders before executing them"""
+#     if auth is None:
+#         return
+#     paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
+#     if not auth.require_auth(request.path, paths):
+#         return
+#     if auth.authorization_header(request):
+#         abort(401)
+#     if auth.current_user(request):
+#         abort(403)
 @app.before_request
-def before_request_func():
-    """Filter orders before executing them"""
+def before_request_handler():
+    """
+    Function to run before each request.
+    """
     if auth is None:
         return
-    paths = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
-    if not auth.require_auth(request.path, paths):
+    excluded_paths = ['/api/v1/status/',
+                      '/api/v1/unauthorized/', '/api/v1/forbidden/']
+    path = request.path
+    if not auth.require_auth(path=path, excluded_paths=excluded_paths):
         return
-    if auth.authorization_header(request):
+    if auth.authorization_header(request) is None:
         abort(401)
-    if auth.current_user(request):
+    if auth.current_user(request) is None:
         abort(403)
-
 
 @app.errorhandler(404)
 def not_found(error) -> str:
