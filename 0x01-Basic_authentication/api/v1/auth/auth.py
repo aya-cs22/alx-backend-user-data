@@ -5,7 +5,7 @@ from flask import request
 
 
 class Auth:
-    """This class is the template for all authentication system i will implement."""
+    """This class is the template for all authentication system"""
     def require_auth(self, path: str, excluded_paths: List[str]) -> bool:
         """Determine whether the path requires verification"""
         return False
