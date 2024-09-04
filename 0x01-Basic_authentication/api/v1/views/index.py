@@ -27,12 +27,18 @@ def stats() -> str:
 
 
 @app_views.route('/unauthorized', methods=['GET'], strict_slashes=False)
-def unauthorized() -> None:
-    """An endpoint raises a 401 (Unauthorized) error"""
+def unauthorized_status() -> str:
+    """ GET /api/v1/unauthorized
+    Return:
+      - the  error 401
+    """
     abort(401)
 
 
 @app_views.route('/forbidden', methods=['GET'], strict_slashes=False)
-def forbidden(error) -> str:
-    """An endpoint raises a 403 (forbidden) error"""
+def forbidden_status() -> str:
+    """ GET /api/v1/forbidden
+    Return:
+      - the  error 403
+    """
     abort(403)
