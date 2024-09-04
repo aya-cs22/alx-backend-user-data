@@ -23,6 +23,8 @@ class BasicAuth(Auth):
                                            base64_authorization_header:
                                                str) -> str:
         """Decode the Base64 string into a UTF-8 string"""
+        if base64_authorization_header is None:
+            return None
         if not isinstance(base64_authorization_header, str):
             return None
         try:
