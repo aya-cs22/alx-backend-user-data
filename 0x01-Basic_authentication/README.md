@@ -4,14 +4,6 @@
 
 This project focuses on implementing Basic Authentication for a simple API. It is designed to help you understand the fundamentals of authentication processes and how Basic Authentication works. 
 
-### Project Details
-
-- **Back-end**: Authentication
-- **Weight**: 1
-- **Start Date**: September 2, 2024, 6:00 AM
-- **End Date**: September 4, 2024, 6:00 AM
-- **Checker Release**: September 2, 2024, 6:00 PM
-- **Auto Review**: At the deadline
 
 ### Background Context
 
