@@ -1,31 +1,31 @@
-# 0x01. Basic Authentication
+# 0x02. Session authentication
 
 ## Overview
 
-This project focuses on implementing Basic Authentication for a simple API. It is designed to help you understand the fundamentals of authentication processes and how Basic Authentication works. 
 
 
 ### Background Context
 
-In this project, you will learn about the authentication process and implement Basic Authentication on a simple API. Although it's not recommended to create your own authentication system in a real-world scenario (instead, using modules or frameworks like Flask-HTTPAuth in Python is advised), this exercise will guide you through each step of the Basic Authentication mechanism for educational purposes.
+In this project, you will implement a Session Authentication. You are not allowed to install any other module.
 
+In the industry, you should not implement your own Session authentication system and use a module or framework that doing it for you (like in Python-Flask: Flask-HTTPAuth). Here, for the learning purpose, we will walk through each step of this mechanism to understand it by doing.
 ### Resources
 
-- [REST API Authentication Mechanisms](https://www.youtube.com/watch?v=501dpx2IjGY)
-- [Base64 in Python](https://docs.python.org/3.7/library/base64.html)
-- [HTTP Header Authorization](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Authorization)
+- [REST API Authentication Mechanisms - Only the session auth part](https://www.youtube.com/watch?v=501dpx2IjGY)
+- [HTTP Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)
 - [Flask](https://palletsprojects.com/projects/flask/)
-- [Base64 - Concept](https://en.wikipedia.org/wiki/Base64)
+- [Flask Cookie](https://flask.palletsprojects.com/en/1.1.x/quickstart/#cookies)
 
 ### Learning Objectives
 
-By the end of this project, you should be able to:
+At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
 
-1. Explain what authentication means.
-2. Describe what Base64 is.
-3. Encode a string in Base64.
-4. Understand what Basic Authentication is.
-5. Send the Authorization header in an HTTP request.
+General
+What authentication means
+What session authentication means
+What Cookies are
+How to send Cookies
+How to parse Cookies
 
 ### How to Use This Repository
 
@@ -35,5 +35,5 @@ By the end of this project, you should be able to:
     ```
 2. **Navigate to the project directory**: 
     ```bash
-    cd 0x01-basic-authentication
+    cd 0x02. Session authentication
     ```
