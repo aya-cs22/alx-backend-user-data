@@ -26,9 +26,8 @@ def login():
     #     if not u.is_valid_password(password):
     #         return jsonify({"error": "wrong password"}), 401
     for u in user:    
-        if not user.is_valid_password(password):
+        if not u.is_valid_password(password):
             return jsonify({"error": "wrong password"}), 401
-
     from api.v1.app import auth
 
     user = user[0]
