@@ -7,20 +7,13 @@ from api.v1.views import app_views
 
 @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 def login():
-    """ POST /auth_session/login
-    Return
-        - Logged in user
-    """
+    """Handle user login and session creation"""
     email = request.form.get('email')
-
+    password = request.form.get('password')
     if not email:
         return jsonify({"error": "email missing"}), 400
-
-    password = request.form.get('password')
-
     if not password:
         return jsonify({"error": "password missing"}), 400
-
     try:
         found_users = User.search({'email': email})
     except Exception:
