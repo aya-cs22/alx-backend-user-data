@@ -15,20 +15,19 @@ def login():
     if not password:
         return jsonify({"error": "password missing"}), 400
     try:
-        found_users = User.search({'email': email})
+        user = User.search({'email':email})
     except Exception:
         return jsonify({"error": "no user found for this email"}), 404
-
-    if not found_users:
+    if not user:
         return jsonify({"error": "no user found for this email"}), 404
 
-    for user in found_users:
-        if not user.is_valid_password(password):
+    for u in user:
+        if not u.is_valid_password(password):
             return jsonify({"error": "wrong password"}), 401
 
     from api.v1.app import auth
 
-    user = found_users[0]
+    u = user[0]
 # @app_views.route('/auth_session/login', methods=['POST'], strict_slashes=False)
 # def login():
 #     """Handle user login and session creation"""
