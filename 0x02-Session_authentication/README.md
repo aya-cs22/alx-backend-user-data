@@ -2,7 +2,7 @@
 
 ## Overview
 
-
+In this project, you will implement a session authentication mechanism using Flask. This project focuses on understanding the concept of session authentication by building it from scratch. Although it is recommended in the industry to use existing modules or frameworks for such functionality (e.g. Flask-HTTPAuth)
 
 ### Background Context
 
