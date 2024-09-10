@@ -14,9 +14,9 @@ This project focuses on implementing a user authentication system from scratch u
 
 To help you with this project, refer to the following resources:
 
-- [Flask Documentation](https://flask.palletsprojects.com/)
-- [Requests Module Documentation](https://docs.python-requests.org/en/latest/)
-- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+- [Flask Documentation](https://flask.palletsprojects.com/en/1.1.x/quickstart/)
+- [Requests Module Documentation](https://requests.kennethreitz.org/en/latest/user/quickstart/)
+- [HTTP Status Codes](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html)
 
 ## Learning Objectives
 
