@@ -30,9 +30,28 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email, hashed_password):
-        """Implementation to add user to the database"""
+    def add_user(self, email: str, hashed_password: str) -> User:
+        """
+        Create a User object and save it to the database
+        Args:
+            email (str): user's email address
+            hashed_password (str): password hashed by bcrypt's hashpw
+        Return:
+            Newly created User object
+        """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
         return user
+
+    # def add_user(self, email, hashed_password):
+    #     """Implementation to add user to the database"""
+    #     try:
+    #         user = User(email=email, hashed_password=hashed_password)
+    #         self._session.add(user)
+    #         self._session.commit()
+    #         return user
+    #     except Exception as e:
+    #         self._session.rollback()
+    #         print(f"An error occurred: {e}")
+    #         return None
