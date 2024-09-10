@@ -47,16 +47,38 @@ class DB:
             raise NoResultFound()
         except Exception as e:
             raise InvalidRequestError(e)
-
+        
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Update a user with the given user_id and attributes."""
+        """
+        Update a user's attributes
+        Args:
+            user_id (int): user's id
+            kwargs (dict): dict of key, value pairs representing the
+                           attributes to update and the values to update
+                           them with
+        Return:
+            No return value
+        """
         try:
-            user = self.find_user_by(id=user_id)
+            usr = self.find_user_by(id=user_id)
         except NoResultFound:
             raise ValueError()
         for k, v in kwargs.items():
-            if hasattr(user, k):
-                setattr(user, k, v)
+            if hasattr(usr, k):
+                setattr(usr, k, v)
             else:
                 raise ValueError
         self._session.commit()
+
+    # def update_user(self, user_id: int, **kwargs) -> None:
+    #     """Update a user with the given user_id and attributes."""
+    #     try:
+    #         user = self.find_user_by(id=user_id)
+    #     except NoResultFound:
+    #         raise ValueError()
+    #     for k, v in kwargs.items():
+    #         if hasattr(user, k):
+    #             setattr(user, k, v)
+    #         else:
+    #             raise ValueError
+    #     self._session.commit()
