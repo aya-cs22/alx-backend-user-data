@@ -1,39 +1,42 @@
-# 0x02. Session authentication
+# 0x03. User Authentication Service
 
-## Overview
+## Project Overview
 
-In this project, you will implement a session authentication mechanism using Flask. This project focuses on understanding the concept of session authentication by building it from scratch. Although it is recommended in the industry to use existing modules or frameworks for such functionality (e.g. Flask-HTTPAuth)
+This project focuses on implementing a user authentication system from scratch using Flask for educational purposes. The objective is to understand the underlying mechanisms of user authentication by building a basic system yourself. In a real-world scenario, it's recommended to use existing modules or frameworks (like Flask-User) to handle authentication securely.
 
-### Background Context
+**Weight**: 1  
+**Project Start Date**: September 9, 2024, 6:00 AM  
+**Project End Date**: September 13, 2024, 6:00 AM  
+**Checker Release Date**: September 10, 2024, 6:00 AM  
+**Auto Review Deadline**: September 13, 2024, 6:00 AM
 
-In this project, you will implement a Session Authentication. You are not allowed to install any other module.
+## Resources
 
-In the industry, you should not implement your own Session authentication system and use a module or framework that doing it for you (like in Python-Flask: Flask-HTTPAuth). Here, for the learning purpose, we will walk through each step of this mechanism to understand it by doing.
-### Resources
+To help you with this project, refer to the following resources:
 
-- [REST API Authentication Mechanisms - Only the session auth part](https://www.youtube.com/watch?v=501dpx2IjGY)
-- [HTTP Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cookie)
-- [Flask](https://palletsprojects.com/projects/flask/)
-- [Flask Cookie](https://flask.palletsprojects.com/en/1.1.x/quickstart/#cookies)
+- [Flask Documentation](https://flask.palletsprojects.com/)
+- [Requests Module Documentation](https://docs.python-requests.org/en/latest/)
+- [HTTP Status Codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
 
-### Learning Objectives
+## Learning Objectives
 
-At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
+By the end of this project, you should be able to explain the following concepts:
 
-General
-What authentication means
-What session authentication means
-What Cookies are
-How to send Cookies
-How to parse Cookies
+- How to declare API routes in a Flask application.
+- How to get and set cookies in a web application.
+- How to retrieve request form data from a client.
+- How to return various HTTP status codes from your API.
 
-### How to Use This Repository
+## Project Requirements
 
-1. **Clone the repository**: 
-    ```bash
-    git clone <repository_url>
-    ```
-2. **Navigate to the project directory**: 
-    ```bash
-    cd 0x02. Session authentication
-    ```
+1. **API Routes**: Implement routes in your Flask application to handle user registration, login, and logout.
+2. **Cookies**: Manage cookies for session handling.
+3. **Form Data**: Retrieve and process form data sent by the client.
+4. **HTTP Status Codes**: Return appropriate HTTP status codes for various responses (e.g., success, error).
+
+## Getting Started
+
+1. **Clone the Repository**:
+   ```bash
+   git clone <repository-url>
+   cd 0x03-user_authentication_service
