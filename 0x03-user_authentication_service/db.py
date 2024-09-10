@@ -35,11 +35,11 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs):
-        """Find a user by given attributes"""
+        """Find a user by given attributes."""
         try:
             user = self._session.query(User).filter_by(**kwargs).one()
             return user
         except NoResultFound:
-            raise NoResultFound()
+            raise NoResultFound("No user found with the given criteria.")
         except Exception as e:
-            raise InvalidRequestError(e)
+            raise InvalidRequestError(f"Invalid request: {e}")
