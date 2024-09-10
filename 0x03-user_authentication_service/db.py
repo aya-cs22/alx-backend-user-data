@@ -38,12 +38,30 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs):
-        """Find a user by given attributes"""
-        try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except NoResultFound:
-            raise NoResultFound()
-        except Exception as e:
-            raise InvalidRequestError(e)
+    def find_user_by(self, **kwargs) -> User:
+        """
+        Return a user who has an attribute matching the attributes passed
+        as arguments
+        Args:
+            attributes (dict): a dictionary of attributes to match the user
+        Return:
+            matching user or raise error
+        """
+        all_users = self._session.query(User)
+        for k, v in kwargs.items():
+            if k not in User.__dict__:
+                raise InvalidRequestError
+            for usr in all_users:
+                if getattr(usr, k) == v:
+                    return usr
+        raise NoResultFound
+
+    # def find_user_by(self, **kwargs):
+    #     """Find a user by given attributes"""
+    #     try:
+    #         user = self._session.query(User).filter_by(**kwargs).one()
+    #         return user
+    #     except NoResultFound:
+    #         raise NoResultFound()
+    #     except Exception as e:
+    #         raise InvalidRequestError(e)
