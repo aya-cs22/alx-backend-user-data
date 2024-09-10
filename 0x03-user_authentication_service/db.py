@@ -39,22 +39,42 @@ class DB:
         return user
 
     def find_user_by(self, **kwargs) -> User:
+        """ Find user by a given attribute
+            Args:
+                - Dictionary of attributes to use as search
+                  parameters
+            Return:
+                - User object
         """
-        Return a user who has an attribute matching the attributes passed
-        as arguments
-        Args:
-            attributes (dict): a dictionary of attributes to match the user
-        Return:
-            matching user or raise error
+
+        attrs, vals = [], []
+        for attr, val in kwargs.items():
+            if not hasattr(User, attr):
+                raise InvalidRequestError()
+            attrs.append(getattr(User, attr))
+            vals.append(val)
+
+        session = self._session
+        query = session.query(User)
+        user = query.filter(tuple_(*attrs).in_([tuple(vals)])).first()
+        if not user:
+            raise NoResultFound()
+        return user
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """ Searches for user instance using given id parameter
+            Args:
+                - user_id: user's id
+            Return:
+                - User instance found
         """
-        all_users = self._session.query(User)
-        for k, v in kwargs.items():
-            if k not in User.__dict__:
-                raise InvalidRequestError
-            for usr in all_users:
-                if getattr(usr, k) == v:
-                    return usr
-        raise NoResultFound
+        user = self.find_user_by(id=user_id)
+        session = self._session
+        for attr, val in kwargs.items():
+            if not hasattr(User, attr):
+                raise ValueError
+            setattr(user, attr, val)
+        session.commit()
     # def find_user_by(self, **kwargs):
     #     """Find a user by given attributes"""
     #     try:
@@ -64,16 +84,3 @@ class DB:
     #         raise NoResultFound()
     #     except Exception as e:
     #         raise InvalidRequestError(e)
-
-    def update_user(self, user_id: int, **kwargs) -> None:
-        """Update a user with the given user_id and attributes."""
-        try:
-            user = self.find_user_by(id=user_id)
-        except NoResultFound:
-            raise ValueError()
-        for k, v in kwargs.items():
-            if hasattr(user, k):
-                setattr(user, k, v)
-            else:
-                raise ValueError
-        self._session.commit()
