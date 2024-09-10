@@ -47,3 +47,24 @@ class DB:
             raise NoResultFound()
         except Exception as e:
             raise InvalidRequestError(e)
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update a user with the given user_id and attributes."""
+        # 1. Find the user by ID
+        try:
+            user = self.find_user_by(id=user_id)
+        except NoResultFound:
+            raise NoResultFound("No user found with the given ID.")
+        
+        # 2. Check for valid attributes and update the user
+        for attr, value in kwargs.items():
+            if not hasattr(user, attr):
+                raise ValueError(f"Invalid attribute: {attr}")
+            setattr(user, attr, value)
+        
+        # 3. Commit the changes to the database
+        try:
+            self._session.commit()
+        except Exception as e:
+            self._session.rollback()
+            raise RuntimeError(f"An error occurred while committing the changes: {e}")
