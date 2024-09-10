@@ -44,6 +44,7 @@ class DB:
         self._session.commit()
         return user
 
+
     # def add_user(self, email, hashed_password):
     #     """Implementation to add user to the database"""
     #     try:
