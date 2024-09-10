@@ -30,29 +30,28 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> User:
-        """
-        Create a User object and save it to the database
-        Args:
-            email (str): user's email address
-            hashed_password (str): password hashed by bcrypt's hashpw
-        Return:
-            Newly created User object
-        """
+    def add_user(self, email, hashed_password):
+        """Implementation to add user to the database"""
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
         return user
 
+    def find_user_by(self, **kwargs) -> User:
+        """ Finds user by key word args
+        Return: First row found in the users table as filtered by kwargs
+        """
+        if not kwargs:
+            raise InvalidRequestError
 
-    # def add_user(self, email, hashed_password):
-    #     """Implementation to add user to the database"""
-    #     try:
-    #         user = User(email=email, hashed_password=hashed_password)
-    #         self._session.add(user)
-    #         self._session.commit()
-    #         return user
-    #     except Exception as e:
-    #         self._session.rollback()
-    #         print(f"An error occurred: {e}")
-    #         return None
+        column_names = User.__table__.columns.keys()
+        for key in kwargs.keys():
+            if key not in column_names:
+                raise InvalidRequestError
+
+        user = self._session.query(User).filter_by(**kwargs).first()
+
+        if user is None:
+            raise NoResultFound
+
+        return user
