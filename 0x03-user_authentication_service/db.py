@@ -38,47 +38,42 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs):
-        """Find a user by given attributes"""
-        try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
-        except NoResultFound:
-            raise NoResultFound()
-        except Exception as e:
-            raise InvalidRequestError(e)
-        
-    def update_user(self, user_id: int, **kwargs) -> None:
+    def find_user_by(self, **kwargs) -> User:
         """
-        Update a user's attributes
+        Return a user who has an attribute matching the attributes passed
+        as arguments
         Args:
-            user_id (int): user's id
-            kwargs (dict): dict of key, value pairs representing the
-                           attributes to update and the values to update
-                           them with
+            attributes (dict): a dictionary of attributes to match the user
         Return:
-            No return value
+            matching user or raise error
         """
+        all_users = self._session.query(User)
+        for k, v in kwargs.items():
+            if k not in User.__dict__:
+                raise InvalidRequestError
+            for usr in all_users:
+                if getattr(usr, k) == v:
+                    return usr
+        raise NoResultFound
+    # def find_user_by(self, **kwargs):
+    #     """Find a user by given attributes"""
+    #     try:
+    #         user = self._session.query(User).filter_by(**kwargs).one()
+    #         return user
+    #     except NoResultFound:
+    #         raise NoResultFound()
+    #     except Exception as e:
+    #         raise InvalidRequestError(e)
+
+    def update_user(self, user_id: int, **kwargs) -> None:
+        """Update a user with the given user_id and attributes."""
         try:
-            usr = self.find_user_by(id=user_id)
+            user = self.find_user_by(id=user_id)
         except NoResultFound:
             raise ValueError()
         for k, v in kwargs.items():
-            if hasattr(usr, k):
-                setattr(usr, k, v)
+            if hasattr(user, k):
+                setattr(user, k, v)
             else:
                 raise ValueError
         self._session.commit()
-
-    # def update_user(self, user_id: int, **kwargs) -> None:
-    #     """Update a user with the given user_id and attributes."""
-    #     try:
-    #         user = self.find_user_by(id=user_id)
-    #     except NoResultFound:
-    #         raise ValueError()
-    #     for k, v in kwargs.items():
-    #         if hasattr(user, k):
-    #             setattr(user, k, v)
-    #         else:
-    #             raise ValueError
-    #     self._session.commit()
