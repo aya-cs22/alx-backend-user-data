@@ -6,7 +6,9 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from typing import TypeVar
-from user import Base, User, engine
+from user import Base, User
+
+
 class DB:
     """ DB Class for Object Reational Mapping """
 
@@ -32,31 +34,31 @@ class DB:
         self._session.commit()
         return user
 
-    def find_user_by(self, **kwargs) -> User:
-        """ Finds user by key word args
-        Return: First row found in the users table as filtered by kwargs
-        """
-        if not kwargs:
-            raise InvalidRequestError
+    # def find_user_by(self, **kwargs) -> User:
+    #     """ Finds user by key word args
+    #     Return: First row found in the users table as filtered by kwargs
+    #     """
+    #     if not kwargs:
+    #         raise InvalidRequestError
 
-        column_names = User.__table__.columns.keys()
-        for key in kwargs.keys():
-            if key not in column_names:
-                raise InvalidRequestError
-        user = self._session.query(User).filter_by(**kwargs).first()
-        if user is None:
-            raise NoResultFound
-        return user
-    # def find_user_by(self, **kwargs)-> User:
-    #     """To find a user in the Users table"""
-    #     try:
-    #         user = self.__session.query(User).filter_by(**kwargs).first()
-    #         if user is None:
-    #             raise NoResultFound
-    #         return user
-    #     except NoResultFound:
+    #     column_names = User.__table__.columns.keys()
+    #     for key in kwargs.keys():
+    #         if key not in column_names:
+    #             raise InvalidRequestError
+    #     user = self._session.query(User).filter_by(**kwargs).first()
+    #     if user is None:
     #         raise NoResultFound
-    #     except InvalidRequestError:
-    #         raise InvalidRequestError()
-    #     except Exception as e:
-    #         raise Exception(e)
+    #     return user
+    def find_user_by(self, **kwargs)-> User:
+        """To find a user in the Users table"""
+        try:
+            user = self.__session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound
+            return user
+        except NoResultFound:
+            raise NoResultFound
+        except InvalidRequestError:
+            raise InvalidRequestError()
+        except Exception as e:
+            raise Exception(e)
