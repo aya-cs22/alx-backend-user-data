@@ -6,9 +6,7 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from typing import TypeVar
-from user import Base, User
-
-
+from user import Base, User, engine
 class DB:
     """ DB Class for Object Reational Mapping """
 
@@ -33,3 +31,17 @@ class DB:
         self._session.add(user)
         self._session.commit()
         return user
+
+    def find_user_by(self, **kwargs)-> User:
+        """To find a user in the Users table"""
+        try:
+            user = self.__session.query(User).filter_by(**kwargs).first()
+            if user is None:
+                raise NoResultFound
+            return user
+        except NoResultFound:
+            raise NoResultFound
+        except InvalidRequestError:
+            raise InvalidRequestError()
+        except Exception as e:
+            raise Exception(e)
