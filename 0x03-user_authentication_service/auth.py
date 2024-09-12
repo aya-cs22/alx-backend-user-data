@@ -100,5 +100,6 @@ class Auth:
             raise ValueError()
         hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
 
-        self._db.update_user(user.id, hashed_password=hashed_password, reset_token=None)
+        self._db.update_user(user.id, hashed_password=hashed_password,
+                             reset_token=None)
         return None
