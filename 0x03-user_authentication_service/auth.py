@@ -57,7 +57,7 @@ class Auth:
         try:
             user = self._db.find_user_by(email=email)
             session_id = self._generate_uuid
-            self._db.update_user_session(email=email, session_id=session_id)
+            self._db.update_user(email=email, session_id=session_id)
             return session_id
         except NoResultFound:
             raise ValueError(f"User with email {email} does not exist")
