@@ -28,38 +28,49 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """Implementation to add user to the database"""
+        """ Adds user to database
+        Return: User Object
+        """
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
+
         return user
 
     def find_user_by(self, **kwargs) -> User:
-        """To find a user in the Users table"""
-        try:
-            user = self.__session.query(User).filter_by(**kwargs).first()
-            if user is None:
-                raise NoResultFound
-            return user
-        except NoResultFound:
+        """ Finds user by key word args
+        Return: First row found in the users table as filtered by kwargs
+        """
+        if not kwargs:
+            raise InvalidRequestError
+
+        column_names = User.__table__.columns.keys()
+        for key in kwargs.keys():
+            if key not in column_names:
+                raise InvalidRequestError
+
+        user = self._session.query(User).filter_by(**kwargs).first()
+
+        if user is None:
             raise NoResultFound
-        except InvalidRequestError:
-            raise InvalidRequestError()
-        except Exception as e:
-            raise Exception(e)
+
+        return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """Update user information in the database"""
-        try:
-            user = self.find_user_by(id=user_id)
-            for key, value in kwargs.items():
-                if not hasattr(user, key):
-                    raise ValueError
-                setattr(user, key, value)
-            self.__session.commit()
-        except NoResultFound:
-            raise NoResultFound
+        """ Update users attributes
+        Returns: None
+        """
+        user = self.find_user_by(id=user_id)
 
+        column_names = User.__table__.columns.keys()
+        for key in kwargs.keys():
+            if key not in column_names:
+                raise ValueError
+
+        for key, value in kwargs.items():
+            setattr(user, key, value)
+
+        self._session.commit()
 
 # #!/usr/bin/env python3
 # """ Database for ORM """
