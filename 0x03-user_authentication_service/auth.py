@@ -16,6 +16,12 @@ def _hash_password(password: str) -> str:
     return hashed_password
 
 
+def _generate_uuid() -> str:
+    """Create a new UUID and return it as a text instance"""
+    new_uuid = uuid4()
+    return str(new_uuid)
+
+
 class Auth:
     """Auth class to interact with the authentication database.
     """
@@ -44,3 +50,6 @@ class Auth:
                 return False
         except NoResultFound:
             return False
+
+    def _generate_uuid():
+        pass
