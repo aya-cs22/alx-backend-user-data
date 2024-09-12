@@ -34,7 +34,6 @@ class DB:
         self._session.commit()
         return user
 
-
     def find_user_by(self, **kwargs) -> User:
         """To find a user in the Users table"""
         try:
@@ -60,6 +59,7 @@ class DB:
             self.__session.commit()
         except NoResultFound:
             raise NoResultFound
+
 
 # #!/usr/bin/env python3
 # """ Database for ORM """
