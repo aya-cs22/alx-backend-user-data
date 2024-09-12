@@ -19,6 +19,7 @@ class DB:
         Base.metadata.create_all(self._engine)
         self.__session = None
 
+
     @property
     def _session(self):
         """ Session Getter Method """
