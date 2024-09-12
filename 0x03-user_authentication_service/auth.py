@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """ Authentication Module """
-
+import hashlib
 import bcrypt
 from db import DB
 from sqlalchemy.orm.exc import NoResultFound
@@ -91,3 +91,14 @@ class Auth:
         reset_token = str(uuid4())
         self._db.update_user(user.id, reset_token=reset_token)
         return reset_token
+
+    def update_password(self, reset_token: str, password: str) -> None:
+        """Update password"""
+        try:
+            user = self._db.find_user_by(reset_token=reset_token)
+        except Exception:
+            raise ValueError()
+        hashed_password = hashlib.sha256(password.encode('utf-8')).hexdigest()
+
+        self._db.update_user(user.id, hashed_password=hashed_password, reset_token=None)
+        return None
