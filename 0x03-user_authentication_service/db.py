@@ -19,7 +19,6 @@ class DB:
         Base.metadata.create_all(self._engine)
         self.__session = None
 
-
     
     @property
     def _session(self):
@@ -30,13 +29,10 @@ class DB:
         return self.__session
 
     def add_user(self, email: str, hashed_password: str) -> User:
-        """ Adds user to database
-        Return: User Object
-        """
+        """Implementation to add user to the database"""
         user = User(email=email, hashed_password=hashed_password)
         self._session.add(user)
         self._session.commit()
-
         return user
 
     def find_user_by(self, **kwargs) -> User:
