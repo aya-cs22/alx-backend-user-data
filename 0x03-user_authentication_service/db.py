@@ -55,20 +55,17 @@ class DB:
         return user
 
     def update_user(self, user_id: int, **kwargs) -> None:
-        """ Update users attributes
-        Returns: None
-        """
-        user = self.find_user_by(id=user_id)
+        """Update user information in the database"""
+        try:
+            user = self.find_user_by(id=user_id)
+            for key, value in kwargs.items():
+                if not hasattr(user, key):
+                    raise ValueError
+                setattr(user, key, value)
+            self.__session.commit()
+        except NoResultFound:
+            raise NoResultFound
 
-        column_names = User.__table__.columns.keys()
-        for key in kwargs.keys():
-            if key not in column_names:
-                raise ValueError
-
-        for key, value in kwargs.items():
-            setattr(user, key, value)
-
-        self._session.commit()
 
 # #!/usr/bin/env python3
 # """ Database for ORM """
