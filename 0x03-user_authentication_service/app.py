@@ -88,14 +88,14 @@ def get_reset_password_token():
 
 
 @app.route('/reset_password', methods=['PUT'])
-def update_password():
+def update_password() -> str:
     """Update password end-point"""
-    email = request.form.get('email')
-    reset_token = request.form.get('reset_token')
-    new_password = request.form.get('new_password')
-
-    if not email or not reset_token or not new_password:
-        return abort(400, description="Missing required fields")
+    try:
+        email = request.form.get('email')
+        reset_token = request.form.get('reset_token')
+        new_password = request.form.get('new_password')
+    except KeyError:
+        abort(400)
     try:
         Auth.update_password(reset_token, new_password)
     except ValueError:
