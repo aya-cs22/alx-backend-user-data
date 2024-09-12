@@ -99,7 +99,7 @@ def update_password() -> str:
     try:
         Auth.update_password(reset_token, new_password)
     except ValueError:
-        return abort(403, description="Invalid reset token")
+        return abort(403)
     return jsonify({"email": email, "message": "Password updated"}), 200
 
 
