@@ -24,11 +24,26 @@ class Auth:
         self._db = DB()
 
     def register_user(self, email: str, password: str) -> User:
-        """Register a new user with the given email and password."""
+        """ Registers a user in the database
+        Returns: User Object
+        """
+
         try:
-            self._db.find_user_by(email=email)
-            raise ValueError(f"User {email} already exists")
-        except Exception:
-            hash_password = self._hash_password(password)
-            user = self._db.add_user(email, hash_password)
+            user = self._db.find_user_by(email=email)
+        except NoResultFound:
+            hashed_password = _hash_password(password)
+            user = self._db.add_user(email, hashed_password)
+
             return user
+
+        else:
+            raise ValueError(f'User {email} already exists')
+    # def register_user(self, email: str, password: str) -> User:
+    #     """Register a new user with the given email and password."""
+    #     try:
+    #         self._db.find_user_by(email=email)
+    #         raise ValueError(f"User {email} already exists")
+    #     except Exception:
+    #         hash_password = self._hash_password(password)
+    #         user = self._db.add_user(email, hash_password)
+    #         return user
