@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""DB module
-"""
+"""DB module"""
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
@@ -31,14 +30,23 @@ class DB:
         return self.__session
 
     def find_user_by(self, **kwargs) -> User:
-        """To find a user in the Users table"""
+        '''searches for a user'''
         try:
-            user = self._session.query(User).filter_by(**kwargs).one()
-            return user
+            return self._session.query(User).filter_by(**kwargs).one()
         except NoResultFound:
             raise NoResultFound
         except InvalidRequestError:
             raise InvalidRequestError
+
+    # def find_user_by(self, **kwargs) -> User:
+    #     """To find a user in the Users table"""
+    #     try:
+    #         user = self._session.query(User).filter_by(**kwargs).one()
+    #         return user
+    #     except NoResultFound:
+    #         raise NoResultFound
+    #     except InvalidRequestError:
+    #         raise InvalidRequestError
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update user information in the database"""
