@@ -28,31 +28,15 @@ class DB:
             self.__session = DBSession()
         return self.__session
 
-    def add_user(self, email: str, hashed_password: str) -> User:
-        """Implementation to add user to the database"""
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
-        self._session.commit()
-        return user
-
     def find_user_by(self, **kwargs) -> User:
-        """ Finds user by key word args
-        Return: First row found in the users table as filtered by kwargs
-        """
-        if not kwargs:
-            raise InvalidRequestError
-
-        column_names = User.__table__.columns.keys()
-        for key in kwargs.keys():
-            if key not in column_names:
-                raise InvalidRequestError
-
-        user = self._session.query(User).filter_by(**kwargs).first()
-
-        if user is None:
+        """To find a user in the Users table"""
+        try:
+            user = self.__session.query(User).filter_by(**kwargs).one()
+            return user
+        except NoResultFound:
             raise NoResultFound
-
-        return user
+        except InvalidRequestError:
+            raise InvalidRequestError()
 
     def update_user(self, user_id: int, **kwargs) -> None:
         """Update user information in the database"""
