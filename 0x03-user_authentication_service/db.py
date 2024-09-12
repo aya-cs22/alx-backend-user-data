@@ -22,13 +22,13 @@ class DB:
 
 
     @property
-    def _session(self) -> Session:
-        """Memoized session object
-        """
+    def _session(self):
+        """ Session Getter Method """
         if self.__session is None:
             DBSession = sessionmaker(bind=self._engine)
             self.__session = DBSession()
         return self.__session
+
 
     def add_user(self, email: str, hashed_password: str) -> User:
         '''Creates and adds a user to the database'''
